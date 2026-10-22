@@ -1,74 +1,24 @@
-import React from "react";
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
-
-type Variant = "primary" | "danger" | "warning" | "ghost" | "success" | "purple";
-
-interface ActionButtonProps {
-  label: string;
-  onPress: () => void;
-  variant?: Variant;
-  disabled?: boolean;
-  loading?: boolean;
-  style?: ViewStyle;
-  small?: boolean;
+import React from 'react';
+import { ActivityIndicator, Pressable, StyleProp, View, ViewStyle } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import Animated, { ReduceMotion, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { C, sansBold } from '../game/theme';
+import Text from './Text';
+type Variant = 'primary' | 'danger' | 'warning' | 'ghost' | 'success' | 'purple';
+export default function ActionButton({ label, onPress, variant = 'primary', disabled, loading, style, small }: { label: string; onPress: () => void; variant?: Variant; disabled?: boolean; loading?: boolean; style?: StyleProp<ViewStyle>; small?: boolean }) {
+  const scale = useSharedValue(1);
+  const motion = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const solid = variant === 'primary' || variant === 'warning', locked = !!disabled || !!loading;
+  const color = solid ? '#203024' : variant === 'danger' ? C.red : variant === 'success' ? C.mint : C.text;
+  const animate = (value: number) => { scale.value = withTiming(value, { duration: 140, reduceMotion: ReduceMotion.System }); };
+  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: locked, busy: !!loading }} disabled={locked} onPress={onPress} onPressIn={() => animate(0.97)} onPressOut={() => animate(1)} onHoverIn={() => animate(1.025)} onHoverOut={() => animate(1)} style={[{ opacity: locked ? 0.42 : 1 }, style]}>
+    <Animated.View style={[motion, { borderWidth: 1, borderColor: solid ? '#D8BA80' : variant === 'success' ? '#426851' : C.line, borderRadius: 8, overflow: 'hidden', boxShadow: solid ? '0px 4px 12px rgba(0,0,0,0.18)' : undefined }]}>
+      <LinearGradient colors={solid ? ['#E9D3A4', '#C4A36A'] : variant === 'success' ? ['#274733', '#193325'] : ['#1C332A', '#11251E']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+        <View style={{ minHeight: 44, paddingVertical: small ? 11 : 16, paddingHorizontal: small ? 13 : 21, alignItems: 'center', justifyContent: 'center' }}>
+          {loading ? <ActivityIndicator color={color} /> : <Text style={{ color, fontSize: small ? 11 : 13, fontFamily: sansBold, textAlign: 'center', letterSpacing: 0.3 }}>{label}</Text>}
+        </View>
+      </LinearGradient>
+    </Animated.View>
+  </Pressable>;
 }
 
-const COLORS: Record<Variant, { bg: string; border: string; text: string; shadow: string }> = {
-  primary: { bg: "#1a3a08",  border: "#3a8018", text: "#88ee44", shadow: "#44cc22" },
-  danger:  { bg: "#2a0404",  border: "#aa1818", text: "#ee5544", shadow: "#cc2222" },
-  warning: { bg: "#2a1800",  border: "#bb6600", text: "#ffaa22", shadow: "#cc7700" },
-  ghost:   { bg: "#0c0804",  border: "#443322", text: "#886644", shadow: "#000" },
-  success: { bg: "#001a10",  border: "#188844", text: "#44ddaa", shadow: "#22aa66" },
-  purple:  { bg: "#160016",  border: "#882299", text: "#dd66ff", shadow: "#aa22cc" },
-};
-
-export default function ActionButton({
-  label, onPress, variant = "primary", disabled, loading, style, small,
-}: ActionButtonProps) {
-  const c = COLORS[variant];
-
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      disabled={disabled || loading}
-      activeOpacity={0.7}
-      style={[
-        styles.btn,
-        {
-          backgroundColor: c.bg,
-          borderColor: disabled ? "#333" : c.border,
-          shadowColor: c.shadow,
-          opacity: disabled ? 0.45 : 1,
-          paddingVertical: small ? 6 : 10,
-          paddingHorizontal: small ? 12 : 18,
-        },
-        style,
-      ]}
-    >
-      {loading
-        ? <ActivityIndicator size="small" color={c.text} />
-        : <Text style={[styles.label, { color: disabled ? "#555" : c.text, fontSize: small ? 12 : 14 }]}>
-            {label}
-          </Text>
-      }
-    </TouchableOpacity>
-  );
-}
-
-const styles = StyleSheet.create({
-  btn: {
-    borderRadius: 8,
-    borderWidth: 1.5,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowOpacity: 0.5,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 4,
-  },
-  label: {
-    fontWeight: "700",
-    letterSpacing: 0.5,
-    textAlign: "center",
-  },
-});

@@ -1,99 +1,39 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import Svg, { Line, Path, Rect, Text as T } from "react-native-svg";
-import { ROLES } from "../game/cards";
-import { RoleName } from "../game/types";
-
-interface CardProps {
-  role?: RoleName | null;
-  revealed?: boolean;
-  faceDown?: boolean;
-  width?: number;
-  height?: number;
-  glowing?: boolean;
-  dimmed?: boolean;
-}
-
-// ── Face d'une carte ──────────────────────────────────────────────────────────
-function CardFace({ role, w, h, dead }: { role: RoleName; w: number; h: number; dead?: boolean }) {
-  const r = ROLES[role];
-  const op = dead ? 0.5 : 1;
-  const fs = Math.max(8, w * 0.13);
-  const sym = Math.max(10, w * 0.55);
-
-  return (
-    <Svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
-      {/* fond */}
-      <Rect width={w} height={h} fill={r.bg} />
-      {/* cadres gravure */}
-      <Rect x={2} y={2} width={w-4} height={h-4} rx={3} fill="none" stroke={r.border} strokeWidth={1} opacity={0.6 * op} />
-      <Rect x={4.5} y={4.5} width={w-9} height={h-9} rx={2} fill="none" stroke={r.border} strokeWidth={0.4} opacity={0.3 * op} />
-      {/* coin haut gauche */}
-      <T x={6} y={14} fontSize={fs*0.9} fill={r.color} opacity={0.9 * op} fontFamily="serif">{r.symbol}</T>
-      {/* symbole central */}
-      <T x={w/2} y={h*0.58} textAnchor="middle" fontSize={sym} fill={r.color} opacity={0.85 * op} fontFamily="serif">{r.symbol}</T>
-      {/* nom */}
-      <T x={w/2} y={h-7} textAnchor="middle" fontSize={fs} fill={r.color} opacity={0.8 * op} fontFamily="serif" letterSpacing={0.8}>
-        {role.toUpperCase()}
-      </T>
-      {/* coin bas droit retourné */}
-      <T x={w-6} y={h-5} textAnchor="end" fontSize={fs*0.9} fill={r.color} opacity={0.9 * op}
-        fontFamily="serif" rotation={180} origin={`${w-6},${h-5}`}>{r.symbol}</T>
-      {/* hachures d'élimination */}
-      {dead && <>
-        <Line x1={w*0.1} y1={h*0.1} x2={w*0.9} y2={h*0.9} stroke="#cc2222" strokeWidth={2.5} strokeLinecap="round" opacity={0.9}/>
-        <Line x1={w*0.9} y1={h*0.1} x2={w*0.1} y2={h*0.9} stroke="#cc2222" strokeWidth={2.5} strokeLinecap="round" opacity={0.9}/>
+import React from 'react';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
+import { ROLES } from '../game/cards';
+import { RoleName } from '../game/types';
+import { C, sansBold, serif } from '../game/theme';
+import { Emblem, Ornament, RoleIcon } from './Visuals';
+import Text from './Text';
+export const portraits: Record<RoleName, number> = {
+  Duchesse: require('../assets/art/duchesse.png'), Assassin: require('../assets/art/assassin.png'),
+  Capitaine: require('../assets/art/capitaine.png'), Comtesse: require('../assets/art/comtesse.png'),
+  Ambassadeur: require('../assets/art/ambassadeur.png'), Inquisiteur: require('../assets/art/inquisiteur.png'),
+};
+export default function Card({ role, revealed = false, faceDown = false, width = 100, height = 148, glowing = false, dimmed = false, style }: { role?: RoleName | null; revealed?: boolean; faceDown?: boolean; width?: number; height?: number; glowing?: boolean; dimmed?: boolean; style?: StyleProp<ViewStyle> }) {
+  const hidden = faceDown || !role, compact = width < 80;
+  const accent = hidden ? C.gold : ROLES[role!].color;
+  return <View accessibilityLabel={hidden ? 'Influence cachée' : role + (revealed ? ', révélée' : '')} style={[{
+    width, height, borderRadius: width * 0.055, borderWidth: glowing ? 2 : 1, borderColor: glowing ? '#F6D99E' : hidden ? '#7F704C' : '#887750',
+    backgroundColor: '#0C201A', opacity: dimmed ? 0.4 : 1, boxShadow: glowing ? '0px 0px 22px rgba(217,185,121,0.25)' : '0px 8px 18px rgba(0,0,0,0.32)',
+  }, style]}>
+    <View style={{ flex: 1, overflow: 'hidden', borderRadius: width * 0.045 }}>
+      {hidden ? <>
+        <LinearGradient colors={['#254336', '#0C201A', '#1A342B']} style={StyleSheet.absoluteFill} />
+        <Ornament opacity={0.15}/>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: width * 0.08 }}><Emblem size={width * 0.65} />{!compact && <Text style={{ fontFamily: serif, color: C.gold, letterSpacing: 2, fontSize: width * 0.11 }}>COMPLOT</Text>}</View>
+      </> : <>
+        <Image source={portraits[role!]} style={StyleSheet.absoluteFill} contentFit="cover" transition={0} cachePolicy="memory-disk" aria-hidden={true} />
+        <LinearGradient colors={['transparent', 'rgba(5,13,10,0.15)', '#06100D']} locations={[0, 0.45, 1]} style={StyleSheet.absoluteFill} />
+        {!compact && <><View style={{ position: 'absolute', top: 9, left: 9, width: width * 0.22, height: width * 0.22, borderWidth: 1, borderColor: '#8C7953', borderRadius: width, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(8,20,16,0.85)' }}><RoleIcon role={role!} size={width * 0.13} /></View>
+          <View style={{ position: 'absolute', bottom: height * 0.07, left: 6, right: 6, alignItems: 'center', gap: 3 }}><Text numberOfLines={1} adjustsFontSizeToFit style={{ color: C.text, fontFamily: serif, fontSize: width * (role!.length > 10 ? 0.16 : 0.19) }}>{role}</Text><View style={{ width: width * 0.22, height: 1, backgroundColor: accent, marginVertical: 2 }}/><Text style={{ color: accent, fontSize: width * 0.052, letterSpacing: width * 0.012, fontFamily: sansBold }}>{ROLES[role!].subtitle}</Text></View></>}
       </>}
-    </Svg>
-  );
-}
-
-// ── Dos de carte ─────────────────────────────────────────────────────────────
-function CardBack({ w, h }: { w: number; h: number }) {
-  return (
-    <Svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
-      <Rect width={w} height={h} fill="#1a0e06" />
-      <Rect x={2} y={2} width={w-4} height={h-4} rx={3} fill="none" stroke="#a06820" strokeWidth={1} opacity={0.5}/>
-      <Rect x={5} y={5} width={w-10} height={h-10} rx={2} fill="none" stroke="#a06820" strokeWidth={0.5} opacity={0.25}/>
-      {/* motif losanges */}
-      {[h*0.25, h*0.5, h*0.75].map((cy, i) => (
-        <Path key={i}
-          d={`M${w/2} ${cy-8} L${w/2+8} ${cy} L${w/2} ${cy+8} L${w/2-8} ${cy} Z`}
-          fill="none" stroke="#a06820" strokeWidth={0.7} opacity={0.25}/>
-      ))}
-      <T x={w/2} y={h/2+7} textAnchor="middle" fontSize={w*0.4} fill="#a06820" fontFamily="serif" opacity={0.2}>⚓</T>
-    </Svg>
-  );
-}
-
-// ── Export principal ──────────────────────────────────────────────────────────
-export default function Card({ role, revealed = false, faceDown = false, width = 54, height = 76, glowing = false, dimmed = false }: CardProps) {
-  const w = width, h = height;
-  const r = role ? ROLES[role] : null;
-
-  const shadow = glowing && r
-    ? { shadowColor: r.glow, shadowOpacity: 0.9, shadowRadius: 14, elevation: 10 }
-    : { shadowColor: "#000", shadowOpacity: 0.4, shadowRadius: 4, elevation: 3 };
-
-  const borderColor = glowing && r ? r.border : (r ? r.border + "99" : "#333");
-
-  return (
-    <View style={[
-      styles.base,
-      { width: w, height: h, borderRadius: Math.max(4, w*0.08), borderColor, ...shadow, opacity: dimmed ? 0.35 : 1 },
-    ]}>
-      {faceDown || !role
-        ? <CardBack w={w} h={h} />
-        : <CardFace role={role} w={w} h={h} dead={revealed} />
-      }
+      <View style={{ pointerEvents: 'none', position: 'absolute', inset: width * 0.04, borderWidth: 1, borderColor: hidden ? '#7E704E' : 'rgba(229,201,149,0.5)', borderRadius: width * 0.015 }} />
+      {revealed && <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(8,15,12,0.55)', alignItems: 'center', justifyContent: 'center' }]}><View style={{ paddingVertical: 5, paddingHorizontal: compact ? 3 : 10, backgroundColor: '#542C27', borderColor: '#C67B65', borderTopWidth: 1, borderBottomWidth: 1, transform: [{ rotate: '-12deg' }] }}><Text style={{ color: '#FFD3C6', fontSize: compact ? 7 : width * 0.072, letterSpacing: 1, fontFamily: sansBold }}>RÉVÉLÉE</Text></View></View>}
     </View>
-  );
+  </View>;
 }
 
-const styles = StyleSheet.create({
-  base: {
-    overflow: "hidden",
-    borderWidth: 1.5,
-    shadowOffset: { width: 0, height: 2 },
-  },
-});
+
