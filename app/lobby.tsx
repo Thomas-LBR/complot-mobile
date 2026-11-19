@@ -10,7 +10,7 @@ import { Atmosphere, Emblem } from '../components/Visuals';
 import { Header, Notice, Sheet } from '../components/GameUI';
 import RulesSheet from '../components/RulesSheet';
 import { useEngine } from '../game/EngineContext';
-import { C, serif, ui } from '../game/theme';
+import { C, sansBold, ui } from '../game/theme';
 import { colorFromUsername, initials } from '../game/utils';
 
 export default function Lobby() {
@@ -35,7 +35,7 @@ export default function Lobby() {
     {!!e.error && <Notice text={e.error} danger onClose={e.clearError} />}
     <View style={{ flexDirection: wide ? 'row' : 'column', gap: 24 }}>
       <View style={{ flex: 1.6, gap: 22 }}>
-        <View style={[ui.panel, { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', borderColor: '#706747', backgroundColor: '#1B3225' }]}><Emblem size={50}/><View style={{ flex: 1, gap: 8 }}><Text style={ui.eyebrow}>VOTRE CODE PRIVÉ</Text><Text selectable style={{ color: C.gold, fontFamily: serif, fontSize: wide ? 50 : 39, letterSpacing: 8 }}>{r.code}</Text></View><ActionButton label="Copier l’invitation" variant="ghost" onPress={share} /></View>
+        <View style={[ui.panel, { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', borderColor: '#706747', backgroundColor: '#1B3225' }]}><Emblem size={50}/><View style={{ flex: 1, gap: 8 }}><Text style={ui.eyebrow}>VOTRE CODE PRIVÉ</Text><Text selectable style={{ color: C.gold, fontFamily: sansBold, fontSize: wide ? 44 : 32, letterSpacing: 6, textTransform: 'uppercase' }}>{r.code.toUpperCase()}</Text></View><ActionButton label="Copier l’invitation" variant="ghost" onPress={share} /></View>
         {!!shared && <Notice text={shared} onClose={() => setShared('')} />}
         <View style={ui.row}><Text style={[ui.label, { flex: 1, fontSize: 17 }]}>À bord</Text><Text style={ui.badge}>{r.players.length} / 8 joueurs</Text><Text style={{ color: C.mint, fontSize: 12 }}>{r.players.filter(p => p.ready).length} prêts</Text></View>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
@@ -62,3 +62,4 @@ export default function Lobby() {
     <Sheet visible={leaving} title="Quitter l’équipage ?" subtitle="Votre place dans cette salle sera libérée." onClose={() => setLeaving(false)}><ActionButton label="Quitter la salle" variant="danger" onPress={e.leave} loading={e.busy} /></Sheet>
   </ScrollView></SafeAreaView>;
 }
+

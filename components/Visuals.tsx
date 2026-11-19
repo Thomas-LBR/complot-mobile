@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Animated, { useAnimatedReaction, useAnimatedStyle, useSharedValue, withTiming, runOnJS, useReducedMotion } from 'react-native-reanimated';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -39,10 +40,16 @@ export function Atmosphere() {
 }
 export function Coins({ amount, large = false }: { amount: number; large?: boolean }) {
   const size = large ? 31 : 20;
-  return <View accessibilityLabel={amount + ' pièces'} style={{ flexDirection: 'row', alignItems: 'center', gap: large ? 9 : 6 }}>
+  const [display, setDisplay] = useState(amount);
+  const value = useSharedValue(amount), scale = useSharedValue(1);
+  const reduced = useReducedMotion();
+  useEffect(() => { value.value = withTiming(amount, { duration: reduced ? 0 : 480 }); scale.value = reduced ? 1 : 1.15; scale.value = withTiming(1, { duration: 480 }); }, [amount, reduced, value, scale]);
+  useAnimatedReaction(() => Math.round(value.value), (next, previous) => { if (next !== previous) runOnJS(setDisplay)(next); });
+  const motion = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  return <Animated.View accessibilityLabel={amount + ' pièces'} style={[{ flexDirection: 'row', alignItems: 'center', gap: large ? 9 : 6 }, motion]}>
     <View style={{ width: size, height: size, borderRadius: size / 2, borderColor: '#9E7C3F', borderWidth: 1, padding: 2, backgroundColor: '#D7B46A', transform: [{ rotate: '-12deg' }] }}><View style={{ flex: 1, borderRadius: size, borderWidth: 1, borderColor: '#8B6B33', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: '#61471E', fontSize: large ? 20 : 12, lineHeight: large ? 24 : 14, fontFamily: serif }}>C</Text></View></View>
-    <Text style={{ color: C.gold, fontFamily: sansBold, fontSize: large ? 26 : 16 }}>{amount}</Text>
-  </View>;
+    <Text style={{ color: C.gold, fontFamily: sansBold, fontSize: large ? 26 : 16 }}>{display}</Text>
+  </Animated.View>;
 }
 export function Divider() {
   return <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, width: '100%' }}><View style={{ height: 1, flex: 1, backgroundColor: C.line }} /><Svg width={12} height={12} viewBox="0 0 12 12"><Path d="M6 1 L11 6 L6 11 L1 6Z" stroke={C.gold} fill="none"/></Svg><View style={{ height: 1, flex: 1, backgroundColor: C.line }}/></View>;

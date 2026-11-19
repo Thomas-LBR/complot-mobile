@@ -15,6 +15,7 @@ export interface PendingAction {
   eligibleIds: string[]; respondedIds: string[];
 }
 export interface GameRoom {
+  visualEvents?: TableEvent[];
   code: string; host: string; phase: 'waiting' | 'drafting' | 'playing' | 'finished';
   variant: Variant; currentPlayerIndex: number; turn: number; round: number; deckCount: number;
   pendingAction: PendingAction | null; players: PublicPlayer[]; paused: boolean;
@@ -26,4 +27,11 @@ export interface GameState {
   room: GameRoom | null; myId: string | null; myCards: CardState[];
   mustReveal: MustRevealPayload | null; exchangeOptions: ExchangeOptions | null;
   inspection: { role: RoleName; targetName: string } | null; draftRoles: RoleName[];
+}
+export interface TableEvent {
+  id: number; at: number;
+  kind: 'announce' | 'coins' | 'attack' | 'challenge' | 'verdict' | 'block' | 'cards' | 'reveal' | 'eliminate' | 'turn' | 'inspect';
+  actionId?: string; action?: ActionType; actorId?: string; targetId?: string; fromId?: string;
+  amount?: number; outcome?: string; role?: RoleName; slot?: number;
+  players: PublicPlayer[]; currentPlayerIndex: number;
 }

@@ -11,7 +11,7 @@ import { Atmosphere, Divider, Emblem, Icon } from '../components/Visuals';
 import { Entrance } from '../components/Motion';
 import RulesSheet from '../components/RulesSheet';
 import { useEngine } from '../game/EngineContext';
-import { C, serif, serifItalic, ui } from '../game/theme';
+import { C, serif, serifItalic, sansBold, ui } from '../game/theme';
 import { ALL_ROLES, ROLES } from '../game/cards';
 
 export default function Home() {
@@ -55,7 +55,7 @@ export default function Home() {
               {(['create', 'join'] as const).map(m => <Pressable accessibilityRole="tab" accessibilityState={{ selected: m === mode }} key={m} onPress={() => { setMode(m); setValidation(''); e.clearError(); }} style={{ flex: 1, padding: 13, borderRadius: 5, backgroundColor: mode === m ? '#2A4331' : 'transparent' }}><Text style={{ textAlign: 'center', color: mode === m ? C.text : C.muted, fontSize: 12 }}>{m === 'create' ? 'Créer une salle' : 'Rejoindre'}</Text></Pressable>)}
             </View>
             <View style={{ gap: 9 }}><Text style={ui.label}>Votre nom de joueur</Text><TextInput accessibilityLabel="Votre nom de joueur" style={ui.input} placeholder="Ex. Capitaine Lune" placeholderTextColor="#899686" value={name} onChangeText={setName} maxLength={20} autoComplete="off" returnKeyType="go" onSubmitEditing={submit}/></View>
-            {mode === 'join' && <View style={{ gap: 9 }}><Text style={ui.label}>Code de la salle</Text><TextInput accessibilityLabel="Code de la salle" style={[ui.input, { letterSpacing: 6 }]} placeholder="A1B2C" placeholderTextColor="#899686" value={code} onChangeText={s => setCode(s.replace(/[^a-z0-9]/gi, '').toUpperCase())} maxLength={5} autoCapitalize="characters" autoCorrect={false} onSubmitEditing={submit}/></View>}
+            {mode === 'join' && <View style={{ gap: 9 }}><Text style={ui.label}>Code de la salle</Text><TextInput accessibilityLabel="Code de la salle" style={[ui.input, { fontFamily: sansBold, fontSize: 22, letterSpacing: 6, textTransform: 'uppercase' }]} placeholder="A1B2C" placeholderTextColor="#899686" value={code} onChangeText={s => setCode(s.replace(/[^a-z0-9]/gi, '').toUpperCase())} maxLength={5} autoCapitalize="characters" autoCorrect={false} onSubmitEditing={submit}/></View>}
             {!!(validation || e.error) && <Notice text={validation || e.error!} danger onClose={() => { setValidation(''); e.clearError(); }}/>}
             <ActionButton label={mode === 'create' ? 'Créer mon équipage  →' : 'Rejoindre la table  →'} onPress={submit} disabled={!e.connected} loading={e.busy}/>
             <View style={{ flexDirection: 'row', gap: 7, alignItems: 'center', justifyContent: 'center' }}><Icon name="lock" size={12} color={C.muted}/><Text style={{ color: C.muted, textAlign: 'center', fontSize: 10, lineHeight: 17 }}>{e.connected ? 'Salle privée · Un code suffit pour vous rejoindre' : 'Le serveur doit être démarré pour jouer.'}</Text></View>
@@ -73,5 +73,6 @@ export default function Home() {
     <RulesSheet visible={rules} onClose={() => setRules(false)}/>
   </KeyboardAvoidingView></SafeAreaView>;
 }
+
 
 

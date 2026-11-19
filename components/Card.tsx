@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming, useReducedMotion } from 'react-native-reanimated';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -14,11 +15,14 @@ export const portraits: Record<RoleName, number> = {
 };
 export default function Card({ role, revealed = false, faceDown = false, width = 100, height = 148, glowing = false, dimmed = false, style }: { role?: RoleName | null; revealed?: boolean; faceDown?: boolean; width?: number; height?: number; glowing?: boolean; dimmed?: boolean; style?: StyleProp<ViewStyle> }) {
   const hidden = faceDown || !role, compact = width < 80;
+  const selected = useSharedValue(glowing ? 1 : 0), reduced = useReducedMotion();
+  useEffect(() => { selected.value = withTiming(glowing ? 1 : 0, { duration: reduced ? 0 : 170 }); }, [glowing, reduced, selected]);
+  const selection = useAnimatedStyle(() => ({ transform: [{ translateY: -selected.value * 5 }, { scale: 1 + selected.value * .025 }] }));
   const accent = hidden ? C.gold : ROLES[role!].color;
-  return <View accessibilityLabel={hidden ? 'Influence cachée' : role + (revealed ? ', révélée' : '')} style={[{
+  return <Animated.View accessibilityLabel={hidden ? 'Influence cachée' : role + (revealed ? ', révélée' : '')} style={[{
     width, height, borderRadius: width * 0.055, borderWidth: glowing ? 2 : 1, borderColor: glowing ? '#F6D99E' : hidden ? '#7F704C' : '#887750',
     backgroundColor: '#0C201A', opacity: dimmed ? 0.4 : 1, boxShadow: glowing ? '0px 0px 22px rgba(217,185,121,0.25)' : '0px 8px 18px rgba(0,0,0,0.32)',
-  }, style]}>
+  }, selection, style]}>
     <View style={{ flex: 1, overflow: 'hidden', borderRadius: width * 0.045 }}>
       {hidden ? <>
         <LinearGradient colors={['#254336', '#0C201A', '#1A342B']} style={StyleSheet.absoluteFill} />
@@ -33,7 +37,7 @@ export default function Card({ role, revealed = false, faceDown = false, width =
       <View style={{ pointerEvents: 'none', position: 'absolute', inset: width * 0.04, borderWidth: 1, borderColor: hidden ? '#7E704E' : 'rgba(229,201,149,0.5)', borderRadius: width * 0.015 }} />
       {revealed && <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(8,15,12,0.55)', alignItems: 'center', justifyContent: 'center' }]}><View style={{ paddingVertical: 5, paddingHorizontal: compact ? 3 : 10, backgroundColor: '#542C27', borderColor: '#C67B65', borderTopWidth: 1, borderBottomWidth: 1, transform: [{ rotate: '-12deg' }] }}><Text style={{ color: '#FFD3C6', fontSize: compact ? 7 : width * 0.072, letterSpacing: 1, fontFamily: sansBold }}>RÉVÉLÉE</Text></View></View>}
     </View>
-  </View>;
+  </Animated.View>;
 }
 
 
