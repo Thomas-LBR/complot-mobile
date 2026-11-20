@@ -1,82 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, TextInput, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import ActionButton from '../components/ActionButton';
-import Card from '../components/Card';
 import Text from '../components/Text';
-import { Header, Notice } from '../components/GameUI';
-import { Atmosphere, Divider, Emblem, Icon } from '../components/Visuals';
-import { Entrance } from '../components/Motion';
-import RulesSheet from '../components/RulesSheet';
+import BangArt from '../components/BangArt';
+import TimebombArt from '../components/TimebombArt';
+import { Emblem } from '../components/Visuals';
 import { useEngine } from '../game/EngineContext';
-import { C, serif, serifItalic, sansBold, ui } from '../game/theme';
-import { ALL_ROLES, ROLES } from '../game/cards';
+import { sansBold, serif } from '../game/theme';
 
-export default function Home() {
-  const e = useEngine(), params = useLocalSearchParams<{ code?: string }>();
-  const width = useWindowDimensions().width, wide = width >= 900;
-  const [name, setName] = useState(''), [code, setCode] = useState('');
-  const [mode, setMode] = useState<'create' | 'join'>('create'), [rules, setRules] = useState(false), [validation, setValidation] = useState('');
-  useEffect(() => {
-    try { if (Platform.OS === 'web') setName(window.localStorage.getItem('complot.name') || ''); } catch { /* Optional preference. */ }
-    if (params.code) { setCode(String(params.code).slice(0, 5).toUpperCase()); setMode('join'); }
-  }, [params.code]);
-  const submit = () => {
-    if (!name.trim()) return setValidation('Choisissez votre nom de joueur.');
-    if (mode === 'join' && code.trim().length !== 5) return setValidation('Le code de la salle contient 5 caractères.');
-    setValidation('');
-    try { if (Platform.OS === 'web') window.localStorage.setItem('complot.name', name.trim()); } catch { /* Optional preference. */ }
-    if (mode === 'create') e.createRoom(name.trim()); else e.joinRoom(code.trim().toUpperCase(), name.trim());
-  };
-  if (e.room) return <Redirect href={e.room.phase === 'waiting' ? '/lobby' : '/game'} />;
-  const cardW = wide ? 165 : Math.min(130, (width - 90) / 2);
-  return <SafeAreaView style={ui.page}><Atmosphere/><KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={[ui.container, { paddingHorizontal: wide ? 48 : 20, maxWidth: 1320 }]}>
-      <Header connected={e.connected} onRules={() => setRules(true)} />
-      <View style={{ flexDirection: wide ? 'row' : 'column', gap: 12, padding: 16, borderRadius: 12, borderWidth: 1, borderColor: '#80613C', backgroundColor: '#2B281E', alignItems: wide ? 'center' : 'stretch' }}>
-        <View style={{ flex: 1, gap: 4 }}><Text style={ui.eyebrow}>DEUX TABLES, DEUX AMBIANCES</Text><Text style={{ color: C.text, fontFamily: serif, fontSize: 26 }}>Complot ou BANG! : choisissez votre camp.</Text><Text style={ui.body}>Complot se joue ci-dessous. Le saloon vous attend à 4–7 joueurs.</Text></View>
-        <ActionButton label="Jouer à BANG! →" onPress={() => router.push('/bang')} />
-      </View>
-      <View style={{ flexDirection: wide ? 'row' : 'column', gap: wide ? 70 : 26, paddingTop: wide ? 22 : 6, paddingBottom: 16, alignItems: 'center' }}>
-        <Entrance style={{ flex: wide ? 1.25 : undefined, width: wide ? undefined : '100%', gap: 19 }}>
-          <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}><View style={{ width: 24, height: 1, backgroundColor: C.gold }}/><Text style={ui.eyebrow}>BLUFF. AUDACE. TRAHISON.</Text></View>
-          <Text accessibilityRole="header" style={{ fontSize: wide ? 74 : 52, lineHeight: wide ? 73 : 54, color: C.text, fontFamily: serif }}>Les apparences{ '\n' }sont <Text style={{ color: C.gold, fontFamily: serifItalic }}>trompeuses.</Text></Text>
-          <Text style={[ui.body, { maxWidth: 390, fontSize: 14, lineHeight: 24 }]}>Deux cartes en main. Mille façons de mentir.{ '\n' }Entrez dans le cercle et faites tomber les masques.</Text>
-          <View style={{ flexDirection: 'row', gap: 22, alignItems: 'center' }}><View style={{ flexDirection: 'row', gap: 7, alignItems: 'center' }}><Icon name="users" size={14}/><Text style={{ fontSize: 10, color: C.muted }}>2 à 8 joueurs</Text></View><View style={{ flexDirection: 'row', gap: 7, alignItems: 'center' }}><Icon name="monitor" size={14}/><Text style={{ fontSize: 10, color: C.muted }}>PC & mobile</Text></View><View style={{ flexDirection: 'row', gap: 7, alignItems: 'center' }}><Icon name="unlock" size={14}/><Text style={{ fontSize: 10, color: C.muted }}>Sans compte</Text></View></View>
-          <View accessibilityLabel="Les personnages de Complot" style={{ height: cardW * 1.75, alignItems: 'center', justifyContent: 'center', marginTop: wide ? 14 : 5 }}>
-            <View style={{ pointerEvents: 'none', position: 'absolute', top: -20, opacity: 0.1 }}><Emblem size={cardW * 1.9}/></View>
-            <View style={{ position: 'absolute', transform: [{ translateX: -cardW * 0.72 }, { rotate: '-14deg' }], top: 16 }}><Card role="Assassin" width={cardW} height={cardW * 1.5}/></View>
-            <View style={{ position: 'absolute', transform: [{ translateX: cardW * 0.72 }, { rotate: '14deg' }], top: 16 }}><Card role="Duchesse" width={cardW} height={cardW * 1.5}/></View>
-            <View style={{ position: 'absolute', top: 0, transform: [{ rotate: '-2deg' }] }}><Card role="Capitaine" width={cardW * 1.08} height={cardW * 1.62} glowing/></View>
-          </View>
-        </Entrance>
-        <Entrance style={{ flex: wide ? 0.9 : undefined, width: '100%', maxWidth: 440 }}>
-          <LinearGradient colors={['#263D2C', '#11261D']} style={{ borderRadius: 18, borderWidth: 1, borderColor: '#687050', padding: wide ? 32 : 24, gap: 23, boxShadow: '0px 24px 64px rgba(0,0,0,0.25)' }}>
-            <View style={{ gap: 9 }}><Emblem size={40}/><Text style={ui.eyebrow}>UNE PLACE VOUS ATTEND</Text><Text style={[ui.title, { fontSize: 36 }]}>Entrez dans le cercle.</Text><Text style={ui.body}>Invitez vos amis. Gardez vos secrets.</Text></View>
-            <View style={{ flexDirection: 'row', padding: 4, borderRadius: 8, backgroundColor: '#091A12', borderWidth: 1, borderColor: C.line }}>
-              {(['create', 'join'] as const).map(m => <Pressable accessibilityRole="tab" accessibilityState={{ selected: m === mode }} key={m} onPress={() => { setMode(m); setValidation(''); e.clearError(); }} style={{ flex: 1, padding: 13, borderRadius: 5, backgroundColor: mode === m ? '#2A4331' : 'transparent' }}><Text style={{ textAlign: 'center', color: mode === m ? C.text : C.muted, fontSize: 12 }}>{m === 'create' ? 'Créer une salle' : 'Rejoindre'}</Text></Pressable>)}
-            </View>
-            <View style={{ gap: 9 }}><Text style={ui.label}>Votre nom de joueur</Text><TextInput accessibilityLabel="Votre nom de joueur" style={ui.input} placeholder="Ex. Capitaine Lune" placeholderTextColor="#899686" value={name} onChangeText={setName} maxLength={20} autoComplete="off" returnKeyType="go" onSubmitEditing={submit}/></View>
-            {mode === 'join' && <View style={{ gap: 9 }}><Text style={ui.label}>Code de la salle</Text><TextInput accessibilityLabel="Code de la salle" style={[ui.input, { fontFamily: sansBold, fontSize: 22, letterSpacing: 6, textTransform: 'uppercase' }]} placeholder="A1B2C" placeholderTextColor="#899686" value={code} onChangeText={s => setCode(s.replace(/[^a-z0-9]/gi, '').toUpperCase())} maxLength={5} autoCapitalize="characters" autoCorrect={false} onSubmitEditing={submit}/></View>}
-            {!!(validation || e.error) && <Notice text={validation || e.error!} danger onClose={() => { setValidation(''); e.clearError(); }}/>}
-            <ActionButton label={mode === 'create' ? 'Créer mon équipage  →' : 'Rejoindre la table  →'} onPress={submit} disabled={!e.connected} loading={e.busy}/>
-            <View style={{ flexDirection: 'row', gap: 7, alignItems: 'center', justifyContent: 'center' }}><Icon name="lock" size={12} color={C.muted}/><Text style={{ color: C.muted, textAlign: 'center', fontSize: 10, lineHeight: 17 }}>{e.connected ? 'Salle privée · Un code suffit pour vous rejoindre' : 'Le serveur doit être démarré pour jouer.'}</Text></View>
-          </LinearGradient>
-        </Entrance>
-      </View>
-      <Divider/>
-      <View style={{ gap: 22, paddingVertical: 8 }}><View style={[ui.row, { justifyContent: 'space-between' }]}><View style={{ gap: 5 }}><Text style={ui.eyebrow}>LA GALERIE DES SUSPECTS</Text><Text style={[ui.title, { fontSize: 34 }]}>Tous ont quelque chose à cacher.</Text></View><Pressable accessibilityRole="button" accessibilityLabel="Découvrir les rôles" onPress={() => setRules(true)} style={{ flexDirection: 'row', alignItems: 'center', gap: 9, minHeight: 44 }}><Text style={{ color: C.gold, fontSize: 12 }}>Découvrir les rôles</Text><Icon name="arrow-up-right" size={16}/></Pressable></View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 18, paddingBottom: 18, paddingTop: 3 }}>{ALL_ROLES.map((role, i) => <Pressable accessibilityRole="button" accessibilityLabel={'Comprendre le rôle ' + role} key={role} onPress={() => setRules(true)} style={({ pressed }) => ({ width: wide ? 210 : 165, gap: 11, opacity: pressed ? 0.75 : 1 })}><Card role={role} width={wide ? 210 : 165} height={wide ? 286 : 228}/><View style={{ flexDirection: 'row', alignItems: 'center', gap: 9 }}><Text style={{ color: '#7D8C78', fontSize: 9 }}>0{i + 1}</Text><Text style={{ fontFamily: serif, color: C.text, fontSize: 24 }}>{role}</Text></View><Text style={{ color: C.muted, lineHeight: 19, fontSize: 11 }}>{ROLES[role].desc}</Text></Pressable>)}</ScrollView>
-      </View>
-      <Divider/>
-      <View style={{ flexDirection: wide ? 'row' : 'column', gap: 26, paddingVertical: 8 }}>{[['01', 'Invitez votre cercle', 'Une salle, un code, et vos meilleurs adversaires.'], ['02', 'Cultivez le doute', 'Annoncez un rôle. Tentez un bluff. Observez les réactions.'], ['03', 'Faites tomber les masques', 'Devinez les cartes adverses et restez le dernier en jeu.']].map(([n, title, body]) => <View key={n} style={{ flex: 1, flexDirection: 'row', gap: 17 }}><Text style={{ fontFamily: serif, color: C.gold, fontSize: 33 }}>{n}</Text><View style={{ flex: 1, gap: 5 }}><Text style={ui.label}>{title}</Text><Text style={{ color: C.muted, fontSize: 11, lineHeight: 19 }}>{body}</Text></View></View>)}</View>
-      <Text style={{ textAlign: 'center', color: '#8A9987', fontSize: 9, letterSpacing: 2, paddingTop: 12 }}>COMPLOT · NE VOUS FIEZ À PERSONNE.</Text>
-    </ScrollView>
-    <RulesSheet visible={rules} onClose={() => setRules(false)}/>
-  </KeyboardAvoidingView></SafeAreaView>;
+const games = [
+ {id:'complot',title:'Complot',tag:'LE POUVOIR A SES SECRETS',players:'2–8 joueurs',description:'Deux influences, des pièces et beaucoup de culot. Bluffez pour prendre le contrôle de la table.',colors:['#254F3C','#142E28'] as const,accent:'#E4C784',route:'/complot' as const},
+ {id:'bang',title:'BANG!',tag:'BIENVENUE AU SALOON',players:'4–7 joueurs',description:'Shérif, hors-la-loi ou renégat ? Sortez vos meilleures cartes et choisissez bien vos alliés.',colors:['#995834','#593826'] as const,accent:'#FFD67B',route:'/bang' as const},
+ {id:'timebomb',title:'Time Bomb',tag:'LONDRES RETIENT SON SOUFFLE',players:'4–6 joueurs',description:'Sherlock contre Moriarty. Écoutez les autres, gardez votre camp secret et coupez le bon câble.',colors:['#265B6C','#173441'] as const,accent:'#9AE2D0',route:'/timebomb' as const},
+];
+export default function Home(){const {width}=useWindowDimensions(),wide=width>=1000,params=useLocalSearchParams<{code?:string}>(),e=useEngine();
+ // Preserve invitations generated before the three-game hub existed.
+ if(params.code)return <Redirect href={{pathname:'/complot',params:{code:String(params.code)}}}/>;
+ return <SafeAreaView style={s.page}><LinearGradient colors={['#1C3033','#111E24']} style={StyleSheet.absoluteFill}/><ScrollView contentContainerStyle={[s.container,{padding:wide?36:20}]}>
+  <View style={s.header}><Text style={s.logo}>LA TABLE DES AMIS</Text><Text style={s.small}>PC & MOBILE · SANS COMPTE</Text></View>
+  <View style={s.intro}><Text style={s.eyebrow}>TROIS JEUX. UNE BANDE D’AMIS.</Text><Text accessibilityRole="header" style={[s.title,{fontSize:wide?66:45}]}>Ce soir, on joue{ '\n' }à quoi ?</Text><Text style={s.description}>Choisissez votre univers, créez une salle et partagez son code. Les alliances se font à table. Les trahisons aussi.</Text></View>
+  {e.room&&<Pressable accessibilityRole="button" onPress={()=>router.push(e.room?.phase==='waiting'?'/lobby':'/game')} style={s.resume}><Text style={s.resumeText}>↗ Reprendre votre salle Complot · {e.room.code}</Text></Pressable>}
+  <View style={{flexDirection:wide?'row':'column',gap:18}}>{games.map(game=><Pressable key={game.id} accessibilityRole="button" accessibilityLabel={'Jouer à '+game.title} onPress={()=>router.push(game.route)} style={({pressed})=>({flex:wide?1:undefined,transform:[{translateY:pressed?3:0}],opacity:pressed?.9:1})}>
+   <LinearGradient colors={game.colors} style={[s.game,{borderColor:game.accent+'70'}]}><View style={s.gameTop}><Text style={[s.tag,{color:game.accent}]}>{game.tag}</Text><Text style={s.players}>{game.players}</Text></View>
+    <View style={s.art}>{game.id==='complot'?<Emblem size={130}/>:game.id==='bang'?<View style={{flexDirection:'row',alignItems:'center'}}><BangArt kind="cactus" size={70}/><BangArt size={126}/><BangArt kind="beer" size={70}/></View>:<TimebombArt kind="clock" size={140} color="#F4D068"/>}</View>
+    <Text style={[s.gameTitle,{color:game.accent}]}>{game.title}</Text>{game.id==='timebomb'&&<Text style={[s.tag,{color:game.accent}]}>EVOLUTION · 2 MODES</Text>}<Text style={[s.description,{fontSize:13,lineHeight:22,minHeight:wide?88:undefined}]}>{game.description}</Text><View style={[s.play,{backgroundColor:game.accent}]}><Text style={s.playText}>Jouer à {game.title}   →</Text></View>
+   </LinearGradient>
+  </Pressable>)}</View>
+  <View style={s.footer}><Text style={s.footerTitle}>Une salle privée, un code, c’est parti.</Text><Text style={s.small}>Les codes appartiennent à leur jeu. Pour reprendre Bang! ou Time Bomb, ouvrez simplement le jeu dans le même navigateur.</Text></View>
+ </ScrollView></SafeAreaView>;
 }
-
-
-
+const s=StyleSheet.create({page:{flex:1,backgroundColor:'#111E24'},container:{width:'100%',maxWidth:1320,alignSelf:'center',gap:24,paddingBottom:40},header:{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',gap:10,paddingVertical:10},logo:{fontFamily:sansBold,fontSize:13,letterSpacing:2,color:'#F4DEAD'},small:{fontSize:10,color:'#AFC3C4',lineHeight:18},intro:{gap:14,paddingVertical:22},eyebrow:{fontFamily:sansBold,fontSize:10,letterSpacing:2,color:'#C7B787'},title:{fontFamily:serif,color:'#FAF0D7',lineHeight:undefined},description:{fontSize:14,lineHeight:24,color:'#E3E7DE',maxWidth:570},game:{borderRadius:24,borderWidth:1,padding:22,gap:13},gameTop:{gap:8},tag:{fontFamily:sansBold,fontSize:9,letterSpacing:1.3},players:{color:'#FFF5DA',fontSize:12},art:{height:155,justifyContent:'center',alignItems:'center'},gameTitle:{fontFamily:serif,fontSize:44},play:{borderRadius:12,padding:15,marginTop:8},playText:{fontFamily:sansBold,color:'#203031',fontSize:13,textAlign:'center'},resume:{borderWidth:1,borderColor:'#C7B787',borderRadius:12,padding:16,backgroundColor:'#284338'},resumeText:{color:'#F4DEAD',fontFamily:sansBold,fontSize:12},footer:{alignItems:'center',gap:10,paddingVertical:24},footerTitle:{fontFamily:serif,fontSize:25,color:'#F4DEAD'}});
