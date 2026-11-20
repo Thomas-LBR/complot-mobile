@@ -33,12 +33,12 @@ export default function BangMarket({ cards, chooser, mine, disabled, onChoose }:
   </View>;
 }
 const s = StyleSheet.create({
-  market: { padding: 12, gap: 12, alignItems: 'center', backgroundColor: '#463522', borderWidth: 1, borderColor: '#AD8550', borderRadius: 16 },
-  title: { fontFamily: serif, color: '#E4BC73', fontSize: 28 },
-  status: { fontFamily: sansBold, color: '#F4E6CC', fontSize: 12, textAlign: 'center' },
+  market: { padding: 12, gap: 12, alignItems: 'center', backgroundColor: '#FFF1D1', borderWidth: 3, borderColor: '#493022', borderRadius: 20 },
+  title: { fontFamily: serif, color: '#92491F', fontSize: 28 },
+  status: { fontFamily: sansBold, color: '#493022', fontSize: 12, textAlign: 'center' },
   grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 9 },
-  slot: { width: 76, height: 112, borderRadius: 8, backgroundColor: '#33271B' },
+  slot: { width: 76, height: 112, borderRadius: 8, backgroundColor: '#E2CC9E' },
   taken: { position: 'absolute', inset: 0, alignItems: 'center', justifyContent: 'center', padding: 4, gap: 5 },
-  tick: { color: '#B4CD96', fontSize: 23 },
-  caption: { color: '#C7B18D', fontSize: 10, textAlign: 'center', lineHeight: 15 },
+  tick: { color: '#286F6B', fontSize: 23 },
+  caption: { color: '#785B45', fontSize: 10, textAlign: 'center', lineHeight: 15 },
 });
