@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, TextInput, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -35,6 +35,10 @@ export default function Home() {
   return <SafeAreaView style={ui.page}><Atmosphere/><KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
     <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={[ui.container, { paddingHorizontal: wide ? 48 : 20, maxWidth: 1320 }]}>
       <Header connected={e.connected} onRules={() => setRules(true)} />
+      <View style={{ flexDirection: wide ? 'row' : 'column', gap: 12, padding: 16, borderRadius: 12, borderWidth: 1, borderColor: '#80613C', backgroundColor: '#2B281E', alignItems: wide ? 'center' : 'stretch' }}>
+        <View style={{ flex: 1, gap: 4 }}><Text style={ui.eyebrow}>DEUX TABLES, DEUX AMBIANCES</Text><Text style={{ color: C.text, fontFamily: serif, fontSize: 26 }}>Complot ou BANG! : choisissez votre camp.</Text><Text style={ui.body}>Complot se joue ci-dessous. Le saloon vous attend à 4–7 joueurs.</Text></View>
+        <ActionButton label="Jouer à BANG! →" onPress={() => router.push('/bang')} />
+      </View>
       <View style={{ flexDirection: wide ? 'row' : 'column', gap: wide ? 70 : 26, paddingTop: wide ? 22 : 6, paddingBottom: 16, alignItems: 'center' }}>
         <Entrance style={{ flex: wide ? 1.25 : undefined, width: wide ? undefined : '100%', gap: 19 }}>
           <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}><View style={{ width: 24, height: 1, backgroundColor: C.gold }}/><Text style={ui.eyebrow}>BLUFF. AUDACE. TRAHISON.</Text></View>
