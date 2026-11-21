@@ -1,10 +1,11 @@
+import { BangVisual } from './bang-visuals';
 import { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { SERVER_URL } from './setup';
 export type BangCard = { id:string; type:string; name:string; description:string; category:string; suit:string; rank:number };
 export type BangPlayer = { id:string; name:string; connected:boolean; ready:boolean; alive:boolean; hp:number; maxHp:number; handCount:number; character:{name:string;description:string;hp:number}|null; equipment:BangCard[];range:number;distance:number;role:string|null };
 export type BangPending = { type:string; kind?:string; targetId:string; actorId?:string; remaining?:number; needed?:number; barrelUsed?:string[]; cards?:BangCard[] };
-export type BangState = { myId:string;hand:BangCard[];role:string|null;room:{code:string;hostId:string;phase:string;stage:string;activeId:string;turn:number;bangs:number;paused:boolean;winner:string|null;deckCount:number;discardTop:BangCard|null;pending:BangPending|null;history:{id:number;text:string;kind:string;actorId?:string;targetId?:string}[];players:BangPlayer[]} };
+export type BangState = { myId:string;hand:BangCard[];role:string|null;room:{code:string;hostId:string;phase:string;stage:string;activeId:string;turn:number;bangs:number;paused:boolean;winner:string|null;gameId?:string;visuals?:BangVisual[];deckCount:number;discardTop:BangCard|null;pending:BangPending|null;history:{id:number;text:string;kind:string;actorId?:string;targetId?:string}[];players:BangPlayer[]} };
 let token='';
 function readToken(){try{return typeof window!=='undefined'?window.sessionStorage?.getItem('bang.session')||token:token;}catch{return token;}}
 function saveToken(value:string){token=value;try{if(typeof window!=='undefined')window.sessionStorage?.setItem('bang.session',value);}catch{/* Optional persistence. */}}
