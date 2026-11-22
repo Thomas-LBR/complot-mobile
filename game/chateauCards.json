@@ -1,0 +1,782 @@
+{
+  "C01": {
+    "id": "C01",
+    "image": "c02",
+    "label": "Geôlier",
+    "place": "Castle",
+    "cost": 6,
+    "shields": "Military",
+    "ability": "Gain 1 Key per Military shield in your tableau",
+    "score": "4 points per different shield type in this card’s column"
+  },
+  "C02": {
+    "id": "C02",
+    "image": "c01",
+    "label": "Chevalier",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Military",
+    "ability": "Gain 1 Gold per Castle banner in your tableau",
+    "score": "3 points per Nobility shield in this card’s row and column"
+  },
+  "C03": {
+    "id": "C03",
+    "image": "c27",
+    "label": "Général",
+    "place": "Castle",
+    "cost": 7,
+    "shields": "Military",
+    "ability": "Gain 1 Key per different shield type in your tableau",
+    "score": "6 points per set of three identical shields in your tableau; count sets of each type separately"
+  },
+  "C04": {
+    "id": "C04",
+    "image": "c26",
+    "label": "Maître de guilde",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Craftsmanship, Craftsmanship",
+    "ability": "Discard one of the three face-up Village characters; gain Keys equal to its printed cost",
+    "score": "5 points if this card is in the bottom row"
+  },
+  "C05": {
+    "id": "C05",
+    "image": "c25",
+    "label": "Souffleur de verre",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Craftsmanship",
+    "ability": "Gain 1 Gold per Faith shield and 1 Gold per Craftsmanship shield in your tableau",
+    "score": "4 points per set of one Faith and one Craftsmanship shield in your tableau"
+  },
+  "C06": {
+    "id": "C06",
+    "image": "c39",
+    "label": "Châtelaine",
+    "place": "Castle",
+    "cost": 2,
+    "shields": "Nobility, Craftsmanship",
+    "ability": "Permanent discount: Castle characters cost 1 Gold less",
+    "score": "2 points per different shield type in this card’s row"
+  },
+  "C07": {
+    "id": "C07",
+    "image": "c38",
+    "label": "Prêteur sur gages",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Craftsmanship",
+    "ability": "Gain 1 Gold per card with a printed cost of 4 in your tableau",
+    "score": "3 points per card with a printed cost of 4 in your tableau"
+  },
+  "C08": {
+    "id": "C08",
+    "image": "c37",
+    "label": "Banquière",
+    "place": "Castle",
+    "cost": 7,
+    "shields": "Craftsmanship",
+    "ability": "Place 2 Gold from the supply on each of your cards with a purse, or gain 3 Keys instead",
+    "score": "1 point per Gold stored across all purses in your tableau"
+  },
+  "C09": {
+    "id": "C09",
+    "image": "c34",
+    "label": "Duchesse",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Nobility, Nobility",
+    "ability": "Gain 2 Keys",
+    "score": "8 points if this card is in the top row"
+  },
+  "C10": {
+    "id": "C10",
+    "image": "c33",
+    "label": "Sa Majesté",
+    "place": "Castle",
+    "cost": 6,
+    "shields": "Nobility, Faith",
+    "ability": "Each opponent gains 1 Gold",
+    "score": "4 points per Nobility shield in this card’s column"
+  },
+  "C11": {
+    "id": "C11",
+    "image": "c16",
+    "label": "Religieuse",
+    "place": "Castle",
+    "cost": 3,
+    "shields": "Faith",
+    "ability": "Gain 1 Gold per Castle banner in your tableau",
+    "score": "3 points per Faith shield in this card’s column"
+  },
+  "C12": {
+    "id": "C12",
+    "image": "c15",
+    "label": "Dévot",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Faith",
+    "ability": "Gain 1 Gold per empty space in your tableau",
+    "score": "10 points if your tableau has no Craftsmanship shields"
+  },
+  "C13": {
+    "id": "C13",
+    "image": "c17",
+    "label": "Sa Sainteté",
+    "place": "Castle",
+    "cost": 7,
+    "shields": "Faith",
+    "ability": "Gain 3 Keys; each opponent gains 1 Key",
+    "score": "6 points per shield type absent from your tableau"
+  },
+  "C14": {
+    "id": "C14",
+    "image": "c19",
+    "label": "Cardinal",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Faith",
+    "ability": "Gain 1 Key per Castle banner in your tableau",
+    "score": "3 points per Faith shield in this card’s row"
+  },
+  "C15": {
+    "id": "C15",
+    "image": "c20",
+    "label": "Templier",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Faith, Military",
+    "ability": "Gain 1 Gold per Faith shield in one neighbor’s tableau, and 1 Key per Military shield in your tableau",
+    "score": "1 point per Key you have at game end"
+  },
+  "C16": {
+    "id": "C16",
+    "image": "c28",
+    "label": "Reine Mère",
+    "place": "Castle",
+    "cost": 3,
+    "shields": "Nobility, Nobility",
+    "ability": "Place 2 Gold from the supply on each of your cards with a purse",
+    "score": "2 points per Gold on this card; purse capacity 5"
+  },
+  "C17": {
+    "id": "C17",
+    "image": "c29",
+    "label": "Bouffon",
+    "place": "Castle",
+    "cost": 3,
+    "shields": "Nobility",
+    "ability": "Gain 2 Gold per Nobility shield in your tableau",
+    "score": "2 points per Nobility shield in this card’s row and column"
+  },
+  "C18": {
+    "id": "C18",
+    "image": "c30",
+    "label": "Chancelier",
+    "place": "Castle",
+    "cost": 6,
+    "shields": "Nobility, Scholarship",
+    "ability": "Gain 1 Key per Scholarship shield in your tableau",
+    "score": "2 points per Castle banner in your tableau"
+  },
+  "C19": {
+    "id": "C19",
+    "image": "c31",
+    "label": "Princesse",
+    "place": "Castle",
+    "cost": 3,
+    "shields": "Nobility",
+    "ability": "Permanent discount: Castle and Village characters cost 1 Gold less",
+    "score": "3 points per Nobility shield in this card’s row"
+  },
+  "C20": {
+    "id": "C20",
+    "image": "c32",
+    "label": "Prince",
+    "place": "Castle",
+    "cost": 6,
+    "shields": "Nobility",
+    "ability": "Gain 1 Gold per Nobility shield in your tableau",
+    "score": "4 points per Nobility shield in this card’s row"
+  },
+  "C21": {
+    "id": "C21",
+    "image": "c14",
+    "label": "Pèlerin",
+    "place": "Castle",
+    "cost": 6,
+    "shields": "Faith",
+    "ability": "Permanent discount: Village characters cost 1 Gold less",
+    "score": "4 points per different shield type in this card’s row"
+  },
+  "C22": {
+    "id": "C22",
+    "image": "c13",
+    "label": "Astronome",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Scholarship, Scholarship",
+    "ability": "Permanent discount: Castle characters cost 1 Gold less",
+    "score": "8 points if this card is in the leftmost column"
+  },
+  "C23": {
+    "id": "C23",
+    "image": "c12",
+    "label": "Alchimiste",
+    "place": "Castle",
+    "cost": 6,
+    "shields": "Scholarship",
+    "ability": "Permanent discount: Castle and Village characters cost 1 Gold less",
+    "score": "4 points per card with a discount ability in your tableau"
+  },
+  "C24": {
+    "id": "C24",
+    "image": "c18",
+    "label": "Aumônier",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Faith",
+    "ability": "Gain 1 Gold per card with exactly one shield in your tableau",
+    "score": "2 points per Village banner in your tableau"
+  },
+  "C25": {
+    "id": "C25",
+    "image": "c21",
+    "label": "Fossoyeur",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Faith, Scholarship",
+    "ability": "Discard one of the three face-up Village characters; gain Gold equal to its printed cost",
+    "score": "2 points per Gold on this card; purse capacity 8"
+  },
+  "C26": {
+    "id": "C26",
+    "image": "c22",
+    "label": "Scribe",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Faith",
+    "ability": "Gain 1 Gold per Faith shield in your tableau",
+    "score": "3 points per Scholarship shield in this card’s row and column"
+  },
+  "C27": {
+    "id": "C27",
+    "image": "c36",
+    "label": "Sa Majestée",
+    "place": "Castle",
+    "cost": 7,
+    "shields": "Nobility",
+    "ability": "Gain 1 Key per Nobility shield in your tableau",
+    "score": "10 points per complete set of Nobility, Scholarship and Craftsmanship shields"
+  },
+  "C28": {
+    "id": "C28",
+    "image": "c35",
+    "label": "Baron",
+    "place": "Castle",
+    "cost": 3,
+    "shields": "Nobility",
+    "ability": "Permanent discount: Castle and Village characters cost 1 Gold less",
+    "score": "10 points if your tableau has no Peasantry shields"
+  },
+  "C29": {
+    "id": "C29",
+    "image": "c24",
+    "label": "Intendant",
+    "place": "Castle",
+    "cost": 0,
+    "shields": "Nobility",
+    "ability": "Fill up to two purses in your tableau to their printed capacities with Gold from the supply",
+    "score": "2 points per Gold on this card; purse capacity 3"
+  },
+  "C30": {
+    "id": "C30",
+    "image": "c23",
+    "label": "Mère Supérieure",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Faith, Faith",
+    "ability": "Gain 4 Keys",
+    "score": "5 points if this card is in the top row"
+  },
+  "C31": {
+    "id": "C31",
+    "image": "c11",
+    "label": "Professeur",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Scholarship",
+    "ability": "Gain 1 Gold per different shield type in your tableau",
+    "score": "3 points per Scholarship shield in this card’s row"
+  },
+  "C32": {
+    "id": "C32",
+    "image": "c10",
+    "label": "Apothicaire",
+    "place": "Castle",
+    "cost": 3,
+    "shields": "Scholarship",
+    "ability": "Permanent discount: Castle characters cost 1 Gold less",
+    "score": "3 points per Scholarship shield in this card’s column"
+  },
+  "C33": {
+    "id": "C33",
+    "image": "c09",
+    "label": "Orfèvre",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Scholarship, Craftsmanship",
+    "ability": "Gain 1 Key per card with two shields in your tableau",
+    "score": "6 points if this card is in the leftmost column"
+  },
+  "C34": {
+    "id": "C34",
+    "image": "c08",
+    "label": "Architecte",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Scholarship",
+    "ability": "Permanent discount: Village characters cost 1 Gold less",
+    "score": "2 points per different shield type in your tableau"
+  },
+  "C35": {
+    "id": "C35",
+    "image": "c07",
+    "label": "Mécène",
+    "place": "Castle",
+    "cost": 7,
+    "shields": "Scholarship",
+    "ability": "Each opponent gains 2 Gold",
+    "score": "5 points per card with a printed cost of at least 5 in your tableau"
+  },
+  "C36": {
+    "id": "C36",
+    "image": "c06",
+    "label": "Juge",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Scholarship",
+    "ability": "Gain 2 Keys",
+    "score": "3 points per set of one Castle banner and one Village banner in your tableau"
+  },
+  "C37": {
+    "id": "C37",
+    "image": "c05",
+    "label": "Capitaine",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Military, Military",
+    "ability": "Permanent discount: Village characters cost 1 Gold less",
+    "score": "8 points if this card is in the rightmost column"
+  },
+  "C38": {
+    "id": "C38",
+    "image": "c04",
+    "label": "Officier",
+    "place": "Castle",
+    "cost": 5,
+    "shields": "Military",
+    "ability": "Gain 1 Gold per Nobility shield and 1 Gold per Military shield in your tableau",
+    "score": "4 points per set of one Nobility and one Military shield in your tableau"
+  },
+  "C39": {
+    "id": "C39",
+    "image": "c03",
+    "label": "Garde royale",
+    "place": "Castle",
+    "cost": 4,
+    "shields": "Nobility, Military",
+    "ability": "Every player, including you, gains 1 Key",
+    "score": "3 points per Nobility shield in this card’s column"
+  },
+  "V01": {
+    "id": "V01",
+    "image": "v28",
+    "label": "Mercenaire",
+    "place": "Village",
+    "cost": 6,
+    "shields": "Military, Peasantry",
+    "ability": "Gain 1 Gold for each shield type absent from your tableau",
+    "score": "7 points per complete set of Faith, Military and Peasantry shields"
+  },
+  "V02": {
+    "id": "V02",
+    "image": "v27",
+    "label": "Maître d’armes",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Military, Military",
+    "ability": "Gain 1 Gold per Military shield in your tableau",
+    "score": "2 points per Gold on this card; purse capacity 4"
+  },
+  "V03": {
+    "id": "V03",
+    "image": "v24",
+    "label": "Potier",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Craftsmanship, Craftsmanship",
+    "ability": "Place 2 Gold from the supply on each of your cards with a purse",
+    "score": "2 points per Gold on this card; purse capacity 4"
+  },
+  "V04": {
+    "id": "V04",
+    "image": "v18",
+    "label": "Charpentier",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Craftsmanship",
+    "ability": "Gain 1 Key for each shield type absent from your tableau",
+    "score": "8 points if your tableau contains at least one face-down card"
+  },
+  "V05": {
+    "id": "V05",
+    "image": "v17",
+    "label": "Serrurier",
+    "place": "Village",
+    "cost": 4,
+    "shields": "Craftsmanship, Peasantry",
+    "ability": "Gain 1 Key per Craftsmanship shield in your tableau",
+    "score": "1 point per Key you have at game end"
+  },
+  "V06": {
+    "id": "V06",
+    "image": "v14",
+    "label": "Brigand",
+    "place": "Village",
+    "cost": 7,
+    "shields": "Peasantry",
+    "ability": "Choose one neighbor; gain 1 Key per Castle banner in that neighbor’s tableau",
+    "score": "7 points per pair of Village banners in your tableau"
+  },
+  "V07": {
+    "id": "V07",
+    "image": "v12",
+    "label": "Mendiant",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Peasantry",
+    "ability": "Gain 1 Gold per occupied space in your tableau",
+    "score": "2 points per Faith shield in this card’s row and column"
+  },
+  "V08": {
+    "id": "V08",
+    "image": "v11",
+    "label": "Moine",
+    "place": "Village",
+    "cost": 4,
+    "shields": "Faith, Peasantry",
+    "ability": "Gain 1 Key per Faith shield in your tableau",
+    "score": "2 points per Peasantry shield in this card’s column"
+  },
+  "V09": {
+    "id": "V09",
+    "image": "v10",
+    "label": "Berger",
+    "place": "Village",
+    "cost": 5,
+    "shields": "Peasantry",
+    "ability": "Gain 1 Gold per empty space in your tableau",
+    "score": "3 points per Peasantry shield in this card’s column"
+  },
+  "V10": {
+    "id": "V10",
+    "image": "v09",
+    "label": "Vigneron",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Scholarship, Peasantry",
+    "ability": "Gain 1 Gold per Village banner in your tableau",
+    "score": "2 points per different shield type in this card’s column"
+  },
+  "V11": {
+    "id": "V11",
+    "image": "v26",
+    "label": "Forgeron",
+    "place": "Village",
+    "cost": 5,
+    "shields": "Military, Craftsmanship",
+    "ability": "Choose one neighbor and gain 1 Gold per Nobility shield in their tableau, or gain 2 Keys instead",
+    "score": "2 points per card with two shields in your tableau"
+  },
+  "V12": {
+    "id": "V12",
+    "image": "v25",
+    "label": "Tailleur de pierre",
+    "place": "Village",
+    "cost": 3,
+    "shields": "Craftsmanship",
+    "ability": "Permanent discount: Village characters cost 1 Gold less",
+    "score": "3 points per Craftsmanship shield in this card’s column"
+  },
+  "V13": {
+    "id": "V13",
+    "image": "v23",
+    "label": "Armurier",
+    "place": "Village",
+    "cost": 3,
+    "shields": "Craftsmanship",
+    "ability": "Permanent discount: Castle and Village characters cost 1 Gold less",
+    "score": "3 points per Military shield in this card’s row and column"
+  },
+  "V14": {
+    "id": "V14",
+    "image": "v16",
+    "label": "Fermier",
+    "place": "Village",
+    "cost": 5,
+    "shields": "Peasantry, Peasantry",
+    "ability": "Gain 1 Key per Peasantry shield in your tableau",
+    "score": "7 points if this card is in the bottom row"
+  },
+  "V15": {
+    "id": "V15",
+    "image": "v15",
+    "label": "Bûcheron",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Peasantry",
+    "ability": "Gain 1 Gold per occupied space in your tableau",
+    "score": "5 points if this card is in the rightmost column"
+  },
+  "V16": {
+    "id": "V16",
+    "image": "v13",
+    "label": "Sorcière",
+    "place": "Village",
+    "cost": 4,
+    "shields": "Peasantry",
+    "ability": "Gain 1 Gold per Peasantry shield in your tableau, and 1 Key per Faith shield in one neighbor’s tableau",
+    "score": "9 points if your tableau has no Faith shields"
+  },
+  "V17": {
+    "id": "V17",
+    "image": "v08",
+    "label": "Palefrenier",
+    "place": "Village",
+    "cost": 4,
+    "shields": "Nobility, Peasantry",
+    "ability": "Gain 1 Key per Nobility shield in your tableau",
+    "score": "3 points per Peasantry shield in this card’s column"
+  },
+  "V18": {
+    "id": "V18",
+    "image": "v07",
+    "label": "Ouvrier agricole",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Peasantry",
+    "ability": "Permanent discount: Castle and Village characters cost 1 Gold less",
+    "score": "2 points per Gold on this card; purse capacity 5"
+  },
+  "V19": {
+    "id": "V19",
+    "image": "v06",
+    "label": "Voyageur",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Peasantry",
+    "ability": "Gain 3 Gold per card with a printed cost of 0 in your tableau",
+    "score": "2 points per card with a printed cost of 0 in your tableau"
+  },
+  "V20": {
+    "id": "V20",
+    "image": "v05",
+    "label": "Usurpateur",
+    "place": "Village",
+    "cost": 5,
+    "shields": "Peasantry",
+    "ability": "Gain 1 Key per card with exactly one shield in your tableau",
+    "score": "2 points per Castle banner in your tableau"
+  },
+  "V21": {
+    "id": "V21",
+    "image": "v22",
+    "label": "Marchand d’épice",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Craftsmanship",
+    "ability": "Gain 2 Gold per Craftsmanship shield in your tableau",
+    "score": "5 points if this card is in the middle row"
+  },
+  "V22": {
+    "id": "V22",
+    "image": "v21",
+    "label": "Horloger",
+    "place": "Village",
+    "cost": 3,
+    "shields": "Craftsmanship",
+    "ability": "Gain 1 Gold per Craftsmanship shield in your tableau",
+    "score": "3 points per Craftsmanship shield in this card’s row"
+  },
+  "V23": {
+    "id": "V23",
+    "image": "v20",
+    "label": "Sculpteur",
+    "place": "Village",
+    "cost": 3,
+    "shields": "Faith, Craftsmanship",
+    "ability": "Gain 1 Key per Faith shield in your tableau",
+    "score": "2 points per Gold on this card; purse capacity 7"
+  },
+  "V24": {
+    "id": "V24",
+    "image": "v04",
+    "label": "Pêcheur",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Peasantry, Peasantry",
+    "ability": "Permanent discount: Castle characters cost 1 Gold less",
+    "score": "4 points if this card is in a corner"
+  },
+  "V25": {
+    "id": "V25",
+    "image": "v03",
+    "label": "Révolutionnaire",
+    "place": "Village",
+    "cost": 4,
+    "shields": "Peasantry",
+    "ability": "Gain 1 Key per Village banner in your tableau",
+    "score": "9 points if your tableau has no Nobility shields"
+  },
+  "V26": {
+    "id": "V26",
+    "image": "v02",
+    "label": "Boulanger",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Peasantry",
+    "ability": "Gain 1 Gold per Peasantry shield and 1 Key per Village banner in your tableau",
+    "score": "3 points if this card is at the center of an outer edge, excluding corners"
+  },
+  "V27": {
+    "id": "V27",
+    "image": "v01",
+    "label": "Apiculteur",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Peasantry",
+    "ability": "Place 2 Gold from the supply on each of your cards with a purse",
+    "score": "2 points per Gold on this card; purse capacity 9"
+  },
+  "V28": {
+    "id": "V28",
+    "image": "v39",
+    "label": "Miraculé",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Faith, Faith",
+    "ability": "Gain 1 Key per card with a purse in your tableau",
+    "score": "2 points per Gold on this card; purse capacity 4"
+  },
+  "V29": {
+    "id": "V29",
+    "image": "v38",
+    "label": "Vicaire",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Faith",
+    "ability": "Gain 1 Gold per Village banner in your tableau",
+    "score": "2 points per Gold on this card; purse capacity 5"
+  },
+  "V30": {
+    "id": "V30",
+    "image": "v37",
+    "label": "Espion",
+    "place": "Village",
+    "cost": 4,
+    "shields": "Scholarship, Military",
+    "ability": "Gain 1 Gold per Scholarship shield in your tableau, and 1 Key per Military shield in one neighbor’s tableau",
+    "score": "6 points if this card is in the middle column"
+  },
+  "V31": {
+    "id": "V31",
+    "image": "v19",
+    "label": "Aubergiste",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Craftsmanship",
+    "ability": "Place 2 Gold from the supply on each of your cards with a purse. Each opponent gains 2 Gold",
+    "score": "2 points per Gold on this card; purse capacity 6"
+  },
+  "V32": {
+    "id": "V32",
+    "image": "v36",
+    "label": "Inventeur",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Scholarship, Scholarship",
+    "ability": "Gain 1 Gold per Scholarship shield in your tableau",
+    "score": "1 point per Village banner in your tableau"
+  },
+  "V33": {
+    "id": "V33",
+    "image": "v35",
+    "label": "Médecin",
+    "place": "Village",
+    "cost": 5,
+    "shields": "Scholarship, Peasantry",
+    "ability": "Gain 1 Gold per Scholarship shield and 1 Gold per Peasantry shield in your tableau",
+    "score": "4 points per set of one Scholarship and one Peasantry shield in your tableau"
+  },
+  "V34": {
+    "id": "V34",
+    "image": "v34",
+    "label": "Philosophe",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Scholarship",
+    "ability": "Permanent discount: Castle and Village characters cost 1 Gold less",
+    "score": "10 points if your tableau has no Military shields"
+  },
+  "V35": {
+    "id": "V35",
+    "image": "v33",
+    "label": "Écuyer",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Military",
+    "ability": "Permanent discount: Village characters cost 1 Gold less",
+    "score": "2 points per Craftsmanship shield in this card’s row and column"
+  },
+  "V36": {
+    "id": "V36",
+    "image": "v32",
+    "label": "Bombardier",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Military",
+    "ability": "Choose one neighbor and gain 1 Gold per Craftsmanship shield in their tableau, or gain 2 Keys instead",
+    "score": "3 points per Military shield in this card’s column"
+  },
+  "V37": {
+    "id": "V37",
+    "image": "v31",
+    "label": "Milicien",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Military",
+    "ability": "Choose one neighbor and gain 1 Gold per Peasantry shield in their tableau, or gain 2 Keys instead",
+    "score": "3 points per Military shield in this card’s row"
+  },
+  "V38": {
+    "id": "V38",
+    "image": "v30",
+    "label": "Barbare",
+    "place": "Village",
+    "cost": 2,
+    "shields": "Military",
+    "ability": "Choose one neighbor and gain 1 Gold per Scholarship shield in their tableau, or gain 2 Keys instead",
+    "score": "10 points if your tableau has no Scholarship shields"
+  },
+  "V39": {
+    "id": "V39",
+    "image": "v29",
+    "label": "Bourreau",
+    "place": "Village",
+    "cost": 0,
+    "shields": "Military",
+    "ability": "Discard one of the three face-up Castle characters; gain Gold equal to its printed cost",
+    "score": "1 point per Castle banner in your tableau"
+  }
+}
