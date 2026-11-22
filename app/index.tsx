@@ -4,6 +4,7 @@ import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Text from '../components/Text';
+import InstallApp from '../components/InstallApp';
 import BangArt from '../components/BangArt';
 import TimebombArt from '../components/TimebombArt';
 import { Emblem } from '../components/Visuals';
@@ -28,6 +29,7 @@ export default function Home(){const {width}=useWindowDimensions(),wide=width>=1
     <Text style={[s.gameTitle,{color:game.accent}]}>{game.title}</Text>{game.id==='timebomb'&&<Text style={[s.tag,{color:game.accent}]}>EVOLUTION · 2 MODES</Text>}<Text style={[s.description,{fontSize:13,lineHeight:22,minHeight:wide?88:undefined}]}>{game.description}</Text><View style={[s.play,{backgroundColor:game.accent}]}><Text style={s.playText}>Jouer à {game.title}   →</Text></View>
    </LinearGradient>
   </Pressable>)}</View>
+  <InstallApp/>
   <View style={s.footer}><Text style={s.footerTitle}>Une salle privée, un code, c’est parti.</Text><Text style={s.small}>Les codes appartiennent à leur jeu. Pour reprendre Bang! ou Time Bomb, ouvrez simplement le jeu dans le même navigateur.</Text></View>
  </ScrollView></SafeAreaView>;
 }
